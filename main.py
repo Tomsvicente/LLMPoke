@@ -41,22 +41,19 @@ try:
         # Elegir acción random
         action = random.choice(BUTTONS)
         
-        # Usar la forma correcta de obtener botones (de la clase PyBoy, no del objeto)
-        boton = getattr(PyBoy, f"BUTTON_{action.upper()}")
-
         # Mostrar progreso cada 50 acciones
         if step_count % 50 == 0:
             print(f"Paso {step_count}/{max_steps} - Acción: {action}")
 
         # Presionar botón
-        pyboy.send_input(boton)
+        pyboy.button_press(action)
 
         # Avanzar frames mientras está presionado
         for _ in range(10):
             pyboy.tick()
             
         # Soltar botón
-        pyboy.send_input(boton, press=False)
+        pyboy.button_release(action)
 
         # Avanzar algunos frames más después de soltar
         for _ in range(5):
